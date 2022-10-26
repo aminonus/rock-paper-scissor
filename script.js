@@ -4,19 +4,36 @@ let scoreComputer = 0;
 let numberRounds;
 let playerChoice;
 let pcChoice;
+let matchResult;
+
+initalizeGame();
 
 //Main Sequence of the game
-setNumberRounds();
+function initalizeGame(){
+    setNumberRounds();
  for (let i=1; i<= numberRounds; i++){
     console.log(`Round number: ${i}`);
     checkPlayerChoice();
     console.log(`You chose: ${playerChoice}`);
     checkPcChoice();
     console.log(`PC chose: ${pcChoice}`);
-    checkResults(playerChoice, pcChoice);
+    matchResult = checkResults(playerChoice, pcChoice);
+    console.log(matchResult);
+    console.log(`You: ${scorePlayer} | PC: ${scoreComputer}`);
  }
+if (scorePlayer < scoreComputer){
+    console.log(`YOU LOST THE GAME :(`);
+    } else if (scorePlayer > scoreComputer){
+        console.log(`YOU WON THE GAME!!! WOOHOO`);
+    } else if (scorePlayer == scoreComputer){
+        console.log(`It was a TIE, try again!`);
+    }
+    initalizeGame();
+}
 
 
+
+    
 
 //Set Round Number
 function setNumberRounds() {
@@ -60,5 +77,27 @@ function checkPcChoice() {
 
 //Check the results
 function checkResults(player, pc){
-    
+    let result = "";
+    if (player == pc) {
+        result = "It is a Tie";
+    } else if (player == "Rock" && pc == "Paper") {
+        result = "You lost this round :(";
+        scoreComputer++;
+    } else if (player == "Rock" && pc == "Scissor") {
+        result = "You won this round! :D";
+        scorePlayer++;
+    } else if (player == "Paper" && pc == "Rock") {
+        result = "You won this round! :D";
+        scorePlayer++;
+    } else if (player == "Paper" && pc == "Scissor") {
+        result = "You lost this round :(";
+        scoreComputer++;
+    } else if (player == "Scissor" && pc == "Rock") {
+        result = "You lost this round :(";
+        scoreComputer++;
+    } else if (player == "Scissor" && pc == "Paper") {
+        result = "You won this round! :D";
+        scorePlayer++;
+    }
+    return result;
 }
